@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 
@@ -16,7 +16,7 @@ if (config.NODE_ENV === "development") {
 }
 
 const today = new Date();
-app.get("/", (_req, res) =>
+app.get("/", (_req: Request, res: Response) =>
   res.send(
     "Whatsapp Chatbot Connector by Hyperjump.\n Today is " +
       today.toDateString()

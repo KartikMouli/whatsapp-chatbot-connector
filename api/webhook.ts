@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import { Queue } from "bullmq";
 import { config } from "../utils/config";
@@ -26,7 +26,7 @@ if (SESSION_DATABASE === "redis") {
 
 // accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
 // info on verification request payload: https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests
-webhookRoutes.get("/", (req, res) => {
+webhookRoutes.get("/", (req: Request, res: Response) => {
   const mode = req.query["hub.mode"];
   const token = req.query["hub.verify_token"];
   const challenge = req.query["hub.challenge"];
@@ -41,7 +41,7 @@ webhookRoutes.get("/", (req, res) => {
   }
 });
 
-webhookRoutes.post("/", async (req, res) => {
+webhookRoutes.post("/", async (req: Request, res: Response) => {
   // check if the webhook request contains a message
   // details on WhatsApp text message payload: https://developers.facebook.com/docs/whatsapp/cloud-api/webhooks/payload-examples#text-messages
   const message = req.body.entry?.[0]?.changes[0]?.value?.messages?.[0];
